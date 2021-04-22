@@ -5,19 +5,17 @@ require_once 'file_upload.php';
 if ($_POST) {    
     $roomname = $_POST['roomname'];
     $price = $_POST['price'];
-    $weekeffort = $_POST['weekeffort'];
-    $all_inclusive = $_POST['all_inclusive'];
     $id = $_POST['id'];
     //variable for upload pictures errors is initialized
     $uploadError = '';
 
     $picture = file_upload($_FILES['picture']);//file_upload() called  
-    if($picture->error===0){
-        ($_POST["picture"]=="booking.jpeg")?: unlink("../pictures/$_POST[picture]");           
-        $sql = "UPDATE products SET roomname = '$roomname', price = $price, picture = '$picture->fileName' WHERE id = {$id}";
-    }else{
-        $sql = "UPDATE products SET roomname = '$name', price = $price WHERE id = {$id}";
-    }    
+    if ($picture->error===0){
+        ($_POST["picture"]=="booking.png" )?: unlink("../pictures/$_POST[picture]");          
+        $sql = "UPDATE booking SET roomname = '$roomname', price = $price, picture = '$picture->fileName' WHERE id = {$id}";
+    } else {
+        $sql = "UPDATE booking SET roomname = '$roomname', price = $price WHERE id = {$id}";
+}    
     if ($connect->query($sql) === TRUE) {
         $class = "success";
         $message = "The record was successfully updated";

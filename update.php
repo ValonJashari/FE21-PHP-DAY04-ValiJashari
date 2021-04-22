@@ -3,14 +3,13 @@ require_once 'actions/db_connect.php';
 
 if ($_GET['id']) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM products WHERE id = {$id}";
+    $sql = "SELECT * FROM booking WHERE id = {$id}";
     $result = $connect->query($sql);
     if ($result->num_rows == 1) {
         $data = $result->fetch_assoc();
         $roomname = $data['roomname'];
         $price = $data['price'];
-        $weekeffort = $data['weekeffort'];
-        $all_inclusive = $data['all_inclusive'];
+        
         $picture = $data['picture'];
     } else {
         header("location: error.php");
@@ -40,7 +39,7 @@ if ($_GET['id']) {
     </head>
     <body>
         <fieldset>
-            <legend class='h2'>Update request <img class='img-thumbnail rounded-circle' src='pictures/<?php echo $picture ?>' alt="<?php echo $roomname ?>" alt="<?php echo $weekeffort ?>" alt="<?php echo $all_inclusive ?>" ></legend>
+            <legend class='h2'>Update request <img class='img-thumbnail rounded-circle' src='pictures/<?php echo $picture ?>' alt="<?php echo $roomname ?>"  ></legend>
             <form action="actions/a_update.php"  method="post" enctype="multipart/form-data">
                 <table class="table">
                     <tr>
@@ -51,14 +50,6 @@ if ($_GET['id']) {
                         <th>Price</th>
                         <td><input class="form-control" type= "number" name="price" step="any"  placeholder="Price" value ="<?php echo $price ?>" /></td>
                     </tr>
-                    <tr>
-                        <th>Week Effort</th>
-                        <td><input class='form-control' type="text" name="weekeffort"  placeholder="Week Effort" value="<?php echo $weekeffort ?>" /></td>
-                    </tr>
-                    <tr>
-                        <th>All Inclusive</th>
-                        <td><input class='form-control' type="text" name="all_inclusive"  placeholder="All Inclusive" value="<?php echo $all_inclusive ?>" /></td>
-                    </tr>  
                     <tr>
                         <th>Picture</th>
                         <td><input class="form-control" type="file" name= "picture" /></td>
